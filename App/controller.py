@@ -74,7 +74,7 @@ def loadVideos(catalog):
     cada uno de ellos, se crea en la lista de autores, a dicho autor y una
     referencia al libro que se esta procesando.
     """
-    videosfile = cf.data_dir + 'videos-5pct.csv'
+    videosfile = cf.data_dir + 'videos-10pct.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
@@ -96,6 +96,12 @@ def loadVideoCategories(catalog):
 
 
 # Funciones de ordenamiento
+
+def sortVideosViews(catalog, size):
+    """
+    Ordena los videos por views
+    """
+    return model.sortVideosViews(catalog, size)
 
 def sortVideosLikes(catalog, size):
     """

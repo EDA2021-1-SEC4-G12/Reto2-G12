@@ -312,14 +312,21 @@ def compareCountriesByName(keyname, country):
     else:
         return -1
 
-
-
-def cmpVideosByLikes(video1,video2):
+def cmpVideosByViews(video1,video2):
     """
     Devuelve verdadero (True) si los 'views' de video1 son menores que los del video2
     Args:
         video1: informacion del primer video que incluye su valor 'views'
         video2: informacion del segundo video que incluye su valor 'views'
+    """
+    return (float(video1['views']) > float(video2['views']))
+
+def cmpVideosByLikes(video1,video2):
+    """
+    Devuelve verdadero (True) si los 'likes' de video1 son menores que los del video2
+    Args:
+        video1: informacion del primer video que incluye su valor 'likes'
+        video2: informacion del segundo video que incluye su valor 'likes'
     """
     return (float(video1['likes']) > float(video2['likes']))
 
@@ -340,6 +347,12 @@ def cmpVideosByTime(video1,video2):
 
 
 # Funciones de ordenamiento
+
+def sortVideosViews(catalog, size):
+    sub_list = lt.subList(catalog, 0, size)
+    #sub_list = sub_list.copy()
+    sorted_list = sa.sort(sub_list, cmpVideosByViews)
+    return sorted_list
 
 def sortVideosLikes(catalog, size):
     sub_list = lt.subList(catalog, 0, size)
