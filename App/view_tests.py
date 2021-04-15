@@ -23,6 +23,7 @@
 import config as cf
 import sys
 import datetime
+import tracemalloc
 import controller
 from DISClib.ADT import list as lt
 assert cf
@@ -125,34 +126,66 @@ while True:
         n_videos = input('Top videos por likes: ')
         category = input('Categoría: ')
         country  = input('Pais: ')
+        # Get execution time
+        tracemalloc.start(); start_time = controller.getTime(); start_memory = controller.getMemory()
         videosCategoryCountry = controller.getVideosByCategoryAndCountry(cont, category, country)
         topVideosLikes = controller.sortVideosLikes(videosCategoryCountry['videos'], int(n_videos))
+        stop_time = controller.getTime(); stop_memory = controller.getMemory(); tracemalloc.stop()
+        delta_time = stop_time - start_time
+        delta_memory = controller.deltaMemory(-1.0, -1.0)
+        print('Tiempo [ms]: ', f'{delta_t:.3f}', '  ||  ',
+              'Memoria [kB]: ', f'{delta_m:.3f}')
+        # Print results
         printTopLikes(topVideosLikes, int(n_videos))
         
     elif int(inputs[0]) == 3:
         country = input('Pais: ')
+        # Get execution time
+        tracemalloc.start(); start_time = controller.getTime(); start_memory = controller.getMemory()
         videosCountry = controller.getVideosByCountry(cont, country)
         topTrendingVideo = controller.sortVideosTime(videosCountry['videos'], 100)
         topVidTD = datetime.datetime.strptime(lt.getElement(topTrendingVideo,0)['trending_date'], '%y.%d.%m')
         topVidPT = datetime.datetime.strptime(lt.getElement(topTrendingVideo,0)['publish_time'][:10], '%Y-%m-%d')
         daysTrending = topVidTD-topVidPT; daysTrending = int(daysTrending.days)
+        stop_time = controller.getTime(); stop_memory = controller.getMemory(); tracemalloc.stop()
+        delta_time = stop_time - start_time
+        delta_memory = controller.deltaMemory(-1.0, -1.0)
+        print('Tiempo [ms]: ', f'{delta_t:.3f}', '  ||  ',
+              'Memoria [kB]: ', f'{delta_m:.3f}')
+        # Print results
         printTopTrendingCountry(lt.getElement(topTrendingVideo,0),1,daysTrending)
 
     elif int(inputs[0]) == 4:
         category = input('Categoría: ')
+        # Get execution time
+        tracemalloc.start(); start_time = controller.getTime(); start_memory = controller.getMemory()
         videosCategory = controller.getVideosByCategory(cont, category)
         topTrendingVideo = controller.sortVideosTime(videosCategory['videos'], 100)
         topVidTD = datetime.datetime.strptime(lt.getElement(topTrendingVideo,0)['trending_date'], '%y.%d.%m')
         topVidPT = datetime.datetime.strptime(lt.getElement(topTrendingVideo,0)['publish_time'][:10], '%Y-%m-%d')
         daysTrending = topVidTD-topVidPT; daysTrending = int(daysTrending.days)
+        stop_time = controller.getTime(); stop_memory = controller.getMemory(); tracemalloc.stop()
+        delta_time = stop_time - start_time
+        delta_memory = controller.deltaMemory(-1.0, -1.0)
+        print('Tiempo [ms]: ', f'{delta_t:.3f}', '  ||  ',
+              'Memoria [kB]: ', f'{delta_m:.3f}')
+        # Print results
         printTopTrendingCategory(lt.getElement(topTrendingVideo,0),1,daysTrending)
 
     elif int(inputs[0]) == 5:
         n_videos = input('Top videos por likes: ')
         tag = input('Tag: ')
         country = input('Pais: ')
+        # Get execution time
+        tracemalloc.start(); start_time = controller.getTime(); start_memory = controller.getMemory()
         videosCountryTag = controller.getVideosByCountryAndTag(cont, country, tag)
         topVideosLikes = controller.sortVideosLikes(videosCountryTag['videos'], int(n_videos))
+        stop_time = controller.getTime(); stop_memory = controller.getMemory(); tracemalloc.stop()
+        delta_time = stop_time - start_time
+        delta_memory = controller.deltaMemory(-1.0, -1.0)
+        print('Tiempo [ms]: ', f'{delta_t:.3f}', '  ||  ',
+              'Memoria [kB]: ', f'{delta_m:.3f}')
+        # Print results
         printTopLikesTags(topVideosLikes, int(n_videos))
     
     else:
