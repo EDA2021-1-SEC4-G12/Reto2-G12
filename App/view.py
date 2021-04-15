@@ -38,7 +38,7 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Consultar los Top videos por likes en categoría y país")
+    print("2- Consultar los Top videos por views en categoría y país")
     print("3- Consultar el video con mas trending en pais")
     print("4- Consultar el video con mas trending en categoria")
     print("5- Consultar los Top videos por likes en pais dado tag")
@@ -122,12 +122,12 @@ while True:
               'Memoria [kB]: ', f'{delta_m:.3f}')
 
     elif int(inputs[0]) == 2:
-        n_videos = input('Top videos por likes: ')
+        n_videos = input('Top videos por views: ')
         category = input('Categoría: ')
         country  = input('Pais: ')
         videosCategoryCountry = controller.getVideosByCategoryAndCountry(cont, category, country)
-        topVideosLikes = controller.sortVideosLikes(videosCategoryCountry['videos'], int(n_videos))
-        printTopLikes(topVideosLikes, int(n_videos))
+        topVideosViews = controller.sortVideosViews(videosCategoryCountry['videos'], int(n_videos))
+        printTopLikes(topVideosViews, int(n_videos))
         
     elif int(inputs[0]) == 3:
         country = input('Pais: ')
