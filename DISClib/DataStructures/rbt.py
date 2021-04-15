@@ -46,7 +46,7 @@ Algorithms, 4th Edition
 # ________________________________________________________________________
 
 
-def newMap(cmpfunction):
+def newMap(comparefunction=None):
     """
     Crea una tabla de simbolos ordenada.
     Args:
@@ -58,14 +58,8 @@ def newMap(cmpfunction):
     """
     try:
         rbt = {'root': None,
-               'cmpfunction': None,
+               'cmpfunction': comparefunction,
                'type': 'RBT'}
-
-        if(cmpfunction is None):
-            rbt['cmpfunction'] = defaultfunction
-        else:
-            rbt['cmpfunction'] = cmpfunction
-
         return rbt
     except Exception as exp:
         error.reraise(exp, 'RBT:NewMap')
@@ -1094,12 +1088,3 @@ def removeKey(root, key, cmpfunction):
 
     except Exception as exp:
         error.reraise(exp, 'RBT:removeKey')
-
-
-def defaultfunction(key1, key2):
-    if key1 == key2:
-        return 0
-    elif key1 < key2:
-        return -1
-    else:
-        return 1

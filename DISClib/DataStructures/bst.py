@@ -43,7 +43,7 @@ assert config
 #  ------------------------------------------------------------
 
 
-def newMap(cmpfunction):
+def newMap(compfunction):
     """
     Crea una tabla de simbolos ordenada.
     Args:
@@ -55,16 +55,9 @@ def newMap(cmpfunction):
     """
     try:
         bst = {'root': None,
-               'cmpfunction': cmpfunction,
+               'cmpfunction': compfunction,
                'type': 'BST'}
-
-        if(cmpfunction is None):
-            bst['cmpfunction'] = defaultfunction
-        else:
-            bst['cmpfunction'] = cmpfunction
-
         return bst
-
     except Exception as exp:
         error.reraise(exp, 'BST:NewMap')
 
@@ -863,12 +856,3 @@ def valuesRange(root, keylo, keyhi, lstvalues, cmpfunction):
         return lstvalues
     except Exception as exp:
         error.reraise(exp, 'BST:valuesrange')
-
-
-def defaultfunction(key1, key2):
-    if key1 == key2:
-        return 0
-    elif key1 < key2:
-        return -1
-    else:
-        return 1
